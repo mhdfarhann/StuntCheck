@@ -543,7 +543,7 @@ fun HeadingToolsTextComponent(value: String){
         text = value,
         modifier = Modifier
             .fillMaxWidth()
-            .padding(top = 20.dp, start = 40.dp)
+            .padding(top = 20.dp, start = 35.dp)
             .heightIn(min = 60.dp),
         style = TextStyle(
             fontSize = 30.sp,

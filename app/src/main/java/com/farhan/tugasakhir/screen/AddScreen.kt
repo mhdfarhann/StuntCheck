@@ -1,6 +1,7 @@
 package com.farhan.tugasakhir.screen
 
 import android.widget.Toast
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -12,8 +13,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
@@ -45,6 +48,7 @@ import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -63,6 +67,9 @@ fun AddScreen(addScreenViewModel: AddScreenViewModel = viewModel(), navigateBack
     val selectedGender = remember { mutableStateOf("") }
     val openDialog = remember { mutableStateOf(false) }
     var dateResult by remember { mutableStateOf("Belum memilih tanggal") }
+    var showChildCountDialog by remember { mutableStateOf(true) }
+    var childCount by remember { mutableStateOf(1) }
+    var currentChildIndex by remember { mutableStateOf(1) }
 
     val context = LocalContext.current
 
@@ -79,173 +86,210 @@ fun AddScreen(addScreenViewModel: AddScreenViewModel = viewModel(), navigateBack
             Toast.makeText(context, "Berhasil menambah anak", Toast.LENGTH_SHORT).show()
             addScreenViewModel.resetChildAddedState() // Reset the state after showing the toast
             resetFields()
+            currentChildIndex++
+            if (currentChildIndex > childCount) {
+                navigateBack()
+            }
         }
     }
 
     val colorScheme = MaterialTheme.colorScheme
 
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .background(colorScheme.background)
-            .padding(20.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            IconButton(
-                onClick = navigateBack,
-                modifier = Modifier.size(40.dp)
-            ) {
-                Icon(
-                    imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                    contentDescription = "",
-                    tint = colorScheme.onSurface
-                )
-            }
+    BackHandler(enabled = showChildCountDialog) {
+        navigateBack()
+    }
 
-            HeadingToolsTextComponent(value = "Tambah Anak")
-        }
-
-        Spacer(modifier = Modifier.height(50.dp))
-
-        Card(
-            modifier = Modifier
-                .fillMaxWidth(),
-            colors = CardDefaults.cardColors(
-                containerColor = colorScheme.surface
-            ),
-            elevation = CardDefaults.cardElevation(defaultElevation = 8.dp)
-        ) {
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                TextField(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .clip(RoundedCornerShape(16.dp))
-                        .background(colorScheme.surface),
-                    value = name,
-                    onValueChange = { name = it },
-                    label = { Text("Nama Anak") }
-                )
-                Spacer(modifier = Modifier.height(30.dp))
-                Text(
-                    text = "Jenis Kelamin",
-                    fontSize = 15.sp,
-                    fontWeight = FontWeight.Bold
-                )
-                Row {
-                    RadioButton(
-                        selected = selectedGender.value == Gender.male,
-                        onClick = { selectedGender.value = Gender.male },
-                        colors = RadioButtonDefaults.colors(colorScheme.onSurface)
-                    )
-                    Text(
-                        Gender.male,
-                        modifier = Modifier.align(Alignment.CenterVertically)
-                    )
-                    Spacer(modifier = Modifier.width(20.dp))
-                    RadioButton(
-                        selected = selectedGender.value == Gender.female,
-                        onClick = { selectedGender.value = Gender.female },
-                        colors = RadioButtonDefaults.colors(colorScheme.onSurface)
-                    )
-                    Text(
-                        Gender.female,
-                        modifier = Modifier.align(Alignment.CenterVertically)
+    if (showChildCountDialog) {
+        AlertDialog(
+            onDismissRequest = { navigateBack() },
+            title = { Text(
+                fontWeight = FontWeight.Bold,
+                text = "Jumlah Anak") },
+            text = {
+                Column {
+                    Text(text = "Berapa anak yang ingin ditambahkan?")
+                    TextField(
+                        value = childCount.toString(),
+                        onValueChange = { childCount = it.toIntOrNull() ?: 1 },
+                        keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number)
                     )
                 }
-                Spacer(modifier = Modifier.height(30.dp))
-                Text(
-                    text = "Tanggal Lahir",
-                    fontSize = 15.sp,
-                    fontWeight = FontWeight.Bold
-                )
-                Spacer(modifier = Modifier.height(10.dp))
-                Row(
-                    verticalAlignment = Alignment.CenterVertically
+            },
+            confirmButton = {
+                TextButton(
+                    onClick = {
+                        showChildCountDialog = false
+                    }
                 ) {
-                    Text(dateResult)
-                    Spacer(modifier = Modifier.width(40.dp))
-                    Button(
-                        onClick = { openDialog.value = true },
-                        contentPadding = PaddingValues(),
-                        colors = ButtonDefaults.buttonColors(colorResource(id = R.color.light_blue)),
-                        modifier = Modifier.align(Alignment.Top)
-                    ) {
+                    Text("Lanjut")
+                }
+            }
+        )
+    } else {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(colorScheme.background)
+                .padding(20.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                IconButton(
+                    onClick = navigateBack,
+                    modifier = Modifier.size(40.dp)
+                ) {
+                    Icon(
+                        imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                        contentDescription = "",
+                        tint = colorScheme.onSurface
+                    )
+                }
+
+                HeadingToolsTextComponent(value = "Tambah Anak $currentChildIndex dari $childCount")
+            }
+
+            Spacer(modifier = Modifier.height(50.dp))
+
+            Card(
+                modifier = Modifier
+                    .fillMaxWidth(),
+                colors = CardDefaults.cardColors(
+                    containerColor = colorScheme.surface
+                ),
+                elevation = CardDefaults.cardElevation(defaultElevation = 8.dp)
+            ) {
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(16.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    TextField(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .clip(RoundedCornerShape(16.dp))
+                            .background(colorScheme.surface),
+                        value = name,
+                        onValueChange = { name = it },
+                        label = { Text("Nama Anak") }
+                    )
+                    Spacer(modifier = Modifier.height(30.dp))
+                    Text(
+                        text = "Jenis Kelamin",
+                        fontSize = 15.sp,
+                        fontWeight = FontWeight.Bold
+                    )
+                    Row {
+                        RadioButton(
+                            selected = selectedGender.value == Gender.male,
+                            onClick = { selectedGender.value = Gender.male },
+                            colors = RadioButtonDefaults.colors(colorScheme.onSurface)
+                        )
                         Text(
-                            modifier = Modifier.padding(start = 10.dp, end = 10.dp),
-                            text = "Pilih tanggal",
-                            fontSize = 10.sp,
-                            fontWeight = FontWeight.Bold,
-                            color = White
+                            Gender.male,
+                            modifier = Modifier.align(Alignment.CenterVertically)
+                        )
+                        Spacer(modifier = Modifier.width(20.dp))
+                        RadioButton(
+                            selected = selectedGender.value == Gender.female,
+                            onClick = { selectedGender.value = Gender.female },
+                            colors = RadioButtonDefaults.colors(colorScheme.onSurface)
+                        )
+                        Text(
+                            Gender.female,
+                            modifier = Modifier.align(Alignment.CenterVertically)
                         )
                     }
-                    if (openDialog.value) {
-                        val datePickerState = rememberDatePickerState()
-                        val confirmEnabled = derivedStateOf { datePickerState.selectedDateMillis != null }
-                        DatePickerDialog(
-                            onDismissRequest = { openDialog.value = false },
-                            confirmButton = {
-                                TextButton(
-                                    onClick = {
-                                        openDialog.value = false
-                                        var date = "No selection"
-                                        datePickerState.selectedDateMillis?.let {
-                                            date = Tools.convertLongToTime(it)
-                                        }
-                                        dateResult = date
-                                    },
-                                    enabled = confirmEnabled.value
-                                ) {
-                                    Text(text = "Oke")
-                                }
-                            }
+                    Spacer(modifier = Modifier.height(30.dp))
+                    Text(
+                        text = "Tanggal Lahir",
+                        fontSize = 15.sp,
+                        fontWeight = FontWeight.Bold
+                    )
+                    Spacer(modifier = Modifier.height(10.dp))
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text(dateResult)
+                        Spacer(modifier = Modifier.width(40.dp))
+                        Button(
+                            onClick = { openDialog.value = true },
+                            contentPadding = PaddingValues(),
+                            colors = ButtonDefaults.buttonColors(colorResource(id = R.color.light_blue)),
+                            modifier = Modifier.align(Alignment.Top)
                         ) {
-                            DatePicker(state = datePickerState)
+                            Text(
+                                modifier = Modifier.padding(start = 10.dp, end = 10.dp),
+                                text = "Pilih tanggal",
+                                fontSize = 10.sp,
+                                fontWeight = FontWeight.Bold,
+                                color = White
+                            )
+                        }
+                        if (openDialog.value) {
+                            val datePickerState = rememberDatePickerState()
+                            val confirmEnabled = derivedStateOf { datePickerState.selectedDateMillis != null }
+                            DatePickerDialog(
+                                onDismissRequest = { openDialog.value = false },
+                                confirmButton = {
+                                    TextButton(
+                                        onClick = {
+                                            openDialog.value = false
+                                            var date = "No selection"
+                                            datePickerState.selectedDateMillis?.let {
+                                                date = Tools.convertLongToTime(it)
+                                            }
+                                            dateResult = date
+                                        },
+                                        enabled = confirmEnabled.value
+                                    ) {
+                                        Text(text = "Oke")
+                                    }
+                                }
+                            ) {
+                                DatePicker(state = datePickerState)
+                            }
                         }
                     }
                 }
             }
-        }
 
-        Spacer(modifier = Modifier.height(30.dp))
+            Spacer(modifier = Modifier.height(30.dp))
 
-        Button(
-            onClick = {
-                if (name.isNotEmpty() && selectedGender.value.isNotEmpty() && dateResult != "Belum memilih tanggal") {
-                    val newChild = Child(name, selectedGender.value, dateResult)
-                    val userId = FirebaseAuth.getInstance().currentUser?.uid
-                    if (userId != null) {
-                        addScreenViewModel.addChild(newChild, userId)
+            Button(
+                onClick = {
+                    if (name.isNotEmpty() && selectedGender.value.isNotEmpty() && dateResult != "Belum memilih tanggal") {
+                        val newChild = Child(name, selectedGender.value, dateResult)
+                        val userId = FirebaseAuth.getInstance().currentUser?.uid
+                        if (userId != null) {
+                            addScreenViewModel.addChild(newChild, userId)
+                        }
                     }
-                }
-            },
-            contentPadding = PaddingValues(),
-            colors = ButtonDefaults.buttonColors(colorResource(id = R.color.light_blue)),
-            shape = RoundedCornerShape(16.dp), // Set the corner radius here
-            modifier = Modifier
-                .align(Alignment.CenterHorizontally)
-                .fillMaxWidth()
-                .padding(start = 20.dp, end = 20.dp)
-                .height(56.dp)
-        ) {
-            Text(
-                modifier = Modifier.padding(start = 30.dp, end = 30.dp),
-                text = "Simpan",
-                fontSize = 18.sp,
-                fontWeight = FontWeight.Bold,
-                color = White
-            )
+                },
+                contentPadding = PaddingValues(),
+                colors = ButtonDefaults.buttonColors(colorResource(id = R.color.light_blue)),
+                shape = RoundedCornerShape(16.dp),
+                modifier = Modifier
+                    .align(Alignment.CenterHorizontally)
+                    .fillMaxWidth()
+                    .padding(start = 20.dp, end = 20.dp)
+                    .height(56.dp)
+            ) {
+                Text(
+                    modifier = Modifier.padding(start = 30.dp, end = 30.dp),
+                    text = "Simpan",
+                    fontSize = 18.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = White
+                )
+            }
         }
     }
 }
+
 
 
 
