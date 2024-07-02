@@ -165,7 +165,7 @@ fun AddScreen(addScreenViewModel: AddScreenViewModel = viewModel(), navigateBack
                 Text(
                     modifier = Modifier
                         .padding(bottom = 20.dp),
-                    text = "Anak ke $currentChildIndex dari $childCount",
+                    text = "Anak ke $currentChildIndex dari $childCount anak",
                     fontSize = 25.sp,
                     fontWeight = FontWeight.Bold
                 )

@@ -3,6 +3,7 @@ package com.farhan.tugasakhir.item
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -66,10 +67,22 @@ fun GrowthChart(child: Child) {
     }
 
     if (pointsData.isEmpty()) {
-        Text("No data available", color = valueTextColor, modifier = Modifier.padding(16.dp))
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(300.dp)
+                .background(MaterialTheme.colorScheme.surface.copy(alpha = 0.5f),
+                    shape = RoundedCornerShape(16.dp)
+                )
+                .clip(RoundedCornerShape(16.dp)),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Text("No data available", color = valueTextColor, modifier = Modifier.padding(16.dp))
+        }
     } else {
         val steps = 5
-        val xAxisStepSize = if (pointsData.size > 1) 300.dp / (pointsData.size - 1) else 300.dp
+        val xAxisStepSize = if (pointsData.size > 1) (300.dp - 40.dp) / (pointsData.size - 1) else 300.dp
 
         val xAxisData = AxisData.Builder()
             .axisStepSize(xAxisStepSize)
@@ -82,6 +95,7 @@ fun GrowthChart(child: Child) {
             .endPadding(50.dp)
             .axisLabelFontSize(10.sp)
             .axisLabelAngle(15f)
+//            .startDrawPadding(20.dp)
             .build()
 
         val yAxisData = AxisData.Builder()
@@ -97,6 +111,7 @@ fun GrowthChart(child: Child) {
             .axisLineColor(valueTextColor)
             .axisLabelColor(valueTextColor)
             .axisLabelFontSize(10.sp)
+            .axisOffset(20.dp)
             .build()
 
         val lineChartData = LineChartData(
@@ -139,12 +154,14 @@ fun GrowthChart(child: Child) {
             backgroundColor = Color.Transparent,
             xAxisData = xAxisData,
             yAxisData = yAxisData,
-            gridLines = GridLines(color = MaterialTheme.colorScheme.outlineVariant)
+            gridLines = GridLines(color = MaterialTheme.colorScheme.outlineVariant),
+            containerPaddingEnd = 30.dp,
         )
 
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier
+                .fillMaxWidth()
         ) {
             LineChart(
                 modifier = Modifier
@@ -178,5 +195,3 @@ fun GrowthChart(child: Child) {
         }
     }
 }
-
-
