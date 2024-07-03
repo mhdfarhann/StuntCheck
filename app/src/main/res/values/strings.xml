@@ -27,49 +27,76 @@
 
 
 
-        <string name="gizi_buruk_anjuran">\n- Konsumsi suplemen vitamin dan mineral sesuai dengan anjuran dokter atau ahli gizi.\n\n- Pantau berat badan dan status gizi anak secara berkala, idealnya setiap bulan.\n\n- Berikan makanan tambahan (MP-ASI) yang bergizi seimbang dan sesuai dengan usia anak.\n\n- Pastikan anak mendapatkan imunisasi lengkap dan tepat waktu.\n\n- Konsultasikan dengan ahli gizi atau dokter anak untuk mendapatkan saran yang lebih spesifik dan terarah.</string>
-
-        <string name="gizi_lebih_anjuran">\n- Kurangi konsumsi makanan tinggi kalori, gula, dan lemak jenuh seperti makanan cepat saji, minuman bersoda, dan camilan tidak sehat.\n\n- Tingkatkan aktivitas fisik anak dengan mengajak bermain di luar rumah, berolahraga, atau melakukan kegiatan fisik lainnya minimal 60 menit setiap hari.\n\n- Pantau berat badan dan kesehatan anak secara berkala, setidaknya setiap bulan.\n\n- Berikan makanan dengan porsi yang sesuai dengan kebutuhan anak, hindari porsi berlebihan.\n\n- Ajarkan anak untuk memilih makanan sehat seperti buah-buahan, sayuran, dan biji-bijian.\n\n- Konsultasikan dengan ahli gizi atau dokter anak untuk mendapatkan panduan diet yang tepat dan seimbang.</string>
-
-        <string name="gizi_kurang_anjuran">\n- Tingkatkan asupan kalori dan protein dengan mengonsumsi makanan bergizi seperti daging, ikan, telur, susu, kacang-kacangan, dan produk olahannya.\n\n- Konsumsi suplemen vitamin dan mineral sesuai anjuran dokter atau ahli gizi.\n\n- Pantau berat badan dan status gizi anak secara berkala, idealnya setiap bulan.\n\n- Pastikan anak mendapatkan makanan tambahan (MP-ASI) yang bergizi seimbang dan sesuai dengan usia anak.\n\n- Berikan imunisasi yang lengkap dan tepat waktu.\n\n- Konsultasikan dengan ahli gizi atau dokter anak untuk mendapatkan saran yang lebih spesifik dan terarah.</string>
-
-        <string name="gizi_baik_anjuran">\n– Pertahankan pola makan seimbang dengan mengonsumsi berbagai jenis makanan yang mengandung karbohidrat, protein, lemak, vitamin, dan mineral.\n\n- Ajarkan anak untuk memiliki kebiasaan hidup sehat seperti cukup tidur, minum air putih yang cukup, dan menjaga kebersihan diri.\n\n- Jaga lingkungan sekitar anak agar tetap aman dan mendukung tumbuh kembangnya.</string>
-
-
-    <string name="recommendation_below_6_months">\n- Berikan ASI eksklusif tanpa tambahan makanan atau minuman lain, termasuk air putih.\n\n
-    - Susui bayi sesuai permintaan, setidaknya 8-12 kali sehari.\n\n
-    - Pastikan teknik menyusui yang benar dan posisi yang nyaman bagi ibu dan bayi.\n\n
-    - Pantau pertumbuhan dan perkembangan bayi secara berkala di posyandu atau fasilitas kesehatan.\n\n
+    <string name="gizi_buruk_anjuran">
+    Konsumsi suplemen vitamin dan mineral sesuai dengan anjuran dokter atau ahli gizi.\n\n
+    Pantau berat badan dan status gizi anak secara berkala, idealnya setiap bulan.\n\n
+    Berikan makanan tambahan (MP-ASI) yang bergizi seimbang dan sesuai dengan usia anak.\n\n
+    Pastikan anak mendapatkan imunisasi lengkap dan tepat waktu.\n\n
+    Konsultasikan dengan ahli gizi atau dokter anak untuk mendapatkan saran yang lebih spesifik dan terarah.
 </string>
 
+    <string name="gizi_lebih_anjuran">
+    Kurangi konsumsi makanan tinggi kalori, gula, dan lemak jenuh seperti makanan cepat saji, minuman bersoda, dan camilan tidak sehat.\n\n
+    Tingkatkan aktivitas fisik anak dengan mengajak bermain di luar rumah, berolahraga, atau melakukan kegiatan fisik lainnya minimal 60 menit setiap hari.\n\n
+    Pantau berat badan dan kesehatan anak secara berkala, setidaknya setiap bulan.\n\n
+    Berikan makanan dengan porsi yang sesuai dengan kebutuhan anak, hindari porsi berlebihan.\n\n
+    Ajarkan anak untuk memilih makanan sehat seperti buah-buahan, sayuran, dan biji-bijian.\n\n
+    Konsultasikan dengan ahli gizi atau dokter anak untuk mendapatkan panduan diet yang tepat dan seimbang.
+</string>
 
+    <string name="gizi_kurang_anjuran">
+    Tingkatkan asupan kalori dan protein dengan mengonsumsi makanan bergizi seperti daging, ikan, telur, susu, kacang-kacangan, dan produk olahannya.\n\n
+    Konsumsi suplemen vitamin dan mineral sesuai anjuran dokter atau ahli gizi.\n\n
+    Pantau berat badan dan status gizi anak secara berkala, idealnya setiap bulan.\n\n
+    Pastikan anak mendapatkan makanan tambahan (MP-ASI) yang bergizi seimbang dan sesuai dengan usia anak.\n\n
+    Berikan imunisasi yang lengkap dan tepat waktu.\n\n
+    Konsultasikan dengan ahli gizi atau dokter anak untuk mendapatkan saran yang lebih spesifik dan terarah.
+</string>
+
+    <string name="gizi_baik_anjuran">
+    Pertahankan pola makan seimbang dengan mengonsumsi berbagai jenis makanan yang mengandung karbohidrat, protein, lemak, vitamin, dan mineral.\n\n
+    Ajarkan anak untuk memiliki kebiasaan hidup sehat seperti cukup tidur, minum air putih yang cukup, dan menjaga kebersihan diri.\n\n
+    Jaga lingkungan sekitar anak agar tetap aman dan mendukung tumbuh kembangnya.
+</string>
+
+    <string name="recommendation_below_6_months">
+    Berikan ASI eksklusif tanpa tambahan makanan atau minuman lain, termasuk air putih.\n\n
+    Susui bayi sesuai permintaan, setidaknya 8-12 kali sehari.\n\n
+    Pastikan teknik menyusui yang benar dan posisi yang nyaman bagi ibu dan bayi.\n\n
+    Pantau pertumbuhan dan perkembangan bayi secara berkala di posyandu atau fasilitas kesehatan.
+</string>
 
     <string name="recommendation_6_8_months">
-- ASI tetap diberikan sesering mungkin sesuai permintaan bayi.\n\n- MPASI diberikan 2-3 kali sehari dengan konsistensi semi padat.\n\n
-- Mulai dengan 2-3 sendok makan, bertahap hingga mencapai setengah mangkuk ukuran 250 ml.\n\n
-- Sumber karbohidrat (nasi lembek, bubur), protein hewani (daging, ayam, ikan), protein nabati (tempe, tahu), sayur dan buah yang dihaluskan.\n\n
-- Frekuensi: 2-3 kali sehari ditambah 1-2 kali camilan bergizi.</string>
+    ASI tetap diberikan sesering mungkin sesuai permintaan bayi.\n\n
+    MPASI diberikan 2-3 kali sehari dengan konsistensi semi padat.\n\n
+    Mulai dengan 2-3 sendok makan, bertahap hingga mencapai setengah mangkuk ukuran 250 ml.\n\n
+    Sumber karbohidrat (nasi lembek, bubur), protein hewani (daging, ayam, ikan), protein nabati (tempe, tahu), sayur dan buah yang dihaluskan.\n\n
+    Frekuensi: 2-3 kali sehari ditambah 1-2 kali camilan bergizi.
+</string>
 
     <string name="recommendation_9_11_months">
-- ASI tetap diberikan sesuai permintaan bayi.\n\n
-- MPASI diberikan 3-4 kali sehari dengan konsistensi lebih padat.\n\n
-- Bertahap hingga mencapai ¾ mangkuk ukuran 250 ml.\n\n
-- Variasi makanan lebih banyak, bisa mulai diberikan makanan keluarga yang dihaluskan atau dicincang halus.\n\n
-- Frekuensi: 3-4 kali sehari ditambah 1-2 kali camilan bergizi.</string>
+    ASI tetap diberikan sesuai permintaan bayi.\n\n
+    MPASI diberikan 3-4 kali sehari dengan konsistensi lebih padat.\n\n
+    Bertahap hingga mencapai ¾ mangkuk ukuran 250 ml.\n\n
+    Variasi makanan lebih banyak, bisa mulai diberikan makanan keluarga yang dihaluskan atau dicincang halus.\n\n
+    Frekuensi: 3-4 kali sehari ditambah 1-2 kali camilan bergizi.
+</string>
 
     <string name="recommendation_12_23_months">
-- ASI tetap diberikan sesuai permintaan anak.\n\n
-- Makanan keluarga dengan tekstur yang disesuaikan.\n\n
-- 1 mangkuk ukuran 250 ml per kali makan.\n\n
-- Makanan keluarga dengan komposisi seimbang (karbohidrat, protein hewani dan nabati, sayur, dan buah).\n\n
-- Frekuensi: 3-4 kali sehari ditambah 1-2 kali camilan bergizi.</string>
+    ASI tetap diberikan sesuai permintaan anak.\n\n
+    Makanan keluarga dengan tekstur yang disesuaikan.\n\n
+    1 mangkuk ukuran 250 ml per kali makan.\n\n
+    Makanan keluarga dengan komposisi seimbang (karbohidrat, protein hewani dan nabati, sayur, dan buah).\n\n
+    Frekuensi: 3-4 kali sehari ditambah 1-2 kali camilan bergizi.
+</string>
 
     <string name="recommendation_2_5_years">
-- ASI bisa dilanjutkan jika diinginkan.\\n\n
-- Makanan keluarga dengan porsi dan variasi yang sama dengan anggota keluarga lain.\n\n
-- Disesuaikan dengan kebutuhan anak, biasanya sekitar 1 mangkuk ukuran 250 ml per kali makan.\n\n
-- Makanan keluarga dengan komposisi seimbang dan variasi makanan yang cukup.\n\n
-- Frekuensi: 3 kali makan utama dan 2 kali camilan sehat.</string>
+    ASI bisa dilanjutkan jika diinginkan.\n\n
+    Makanan keluarga dengan porsi dan variasi yang sama dengan anggota keluarga lain.\n\n
+    Disesuaikan dengan kebutuhan anak, biasanya sekitar 1 mangkuk ukuran 250 ml per kali makan.\n\n
+    Makanan keluarga dengan komposisi seimbang dan variasi makanan yang cukup.\n\n
+    Frekuensi: 3 kali makan utama dan 2 kali camilan sehat.
+</string>
 
 
 

@@ -132,7 +132,7 @@ fun ProfileScreen(
                     val imagePainter = if (profileImageUrl.isNotEmpty()) {
                         rememberAsyncImagePainter(profileImageUrl)
                     } else {
-                        rememberAsyncImagePainter("https://via.placeholder.com/100")
+                        rememberAsyncImagePainter("https://i.pinimg.com/736x/5e/39/6b/5e396bb1b17681759922dd10f8a9d702.jpg")
                     }
 
                     Image(
@@ -221,7 +221,7 @@ fun ProfileScreen(
                             Text(
                                 text = email,
                                 style = TextStyle(
-                                    fontSize = 20.sp,
+                                    fontSize = 19.sp,
                                     fontWeight = FontWeight.Normal,
                                     fontStyle = FontStyle.Normal,
                                     color = colorScheme.onSurface

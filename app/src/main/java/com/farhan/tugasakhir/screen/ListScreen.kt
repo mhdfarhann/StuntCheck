@@ -5,6 +5,7 @@ import androidx.annotation.RequiresApi
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.spring
+import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
@@ -19,6 +20,8 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.InlineTextContent
+import androidx.compose.foundation.text.appendInlineContent
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.ArrowDropDown
@@ -35,6 +38,7 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.MaterialTheme.colorScheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -49,9 +53,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.ParagraphStyle
+import androidx.compose.ui.text.Placeholder
+import androidx.compose.ui.text.PlaceholderVerticalAlign
+import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextIndent
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -195,31 +206,14 @@ fun ChildCard(child: Child, listScreenViewModel: ListScreenViewModel) {
             }
             if (expanded) {
                 Spacer(modifier = Modifier.height(8.dp))
-                Text(
-                    text = "Jenis Kelamin: ${child.gender}",
-                    fontSize = 18.sp,
-                    color = colorScheme.onSurface
-                )
-                Text(
-                    text = "Tanggal Lahir: ${child.birthDate}",
-                    fontSize = 18.sp,
-                    color = colorScheme.onSurface
-                )
-                Text(
-                    text = "Usia: $ageInMonths Bulan",
-                    fontSize = 18.sp,
-                    color = colorScheme.onSurface
-                )
-                Text(
-                    text = "Tinggi/Panjang Badan: ${child.height} cm",
-                    fontSize = 18.sp,
-                    color = colorScheme.onSurface
-                )
-                Text(
-                    text = "Berat Badan: ${child.weight} kg",
-                    fontSize = 18.sp,
-                    color = colorScheme.onSurface
-                )
+                Column {
+                    child.gender?.let { ChildInfoText(label = "Jenis Kelamin:", value = it) }
+                    child.birthDate?.let { ChildInfoText(label = "Tanggal Lahir:", value = it) }
+                    ChildInfoText(label = "Usia:", value = "$ageInMonths Bulan")
+                    ChildInfoText(label = "Tinggi/Panjang Badan:", value = "${child.height} cm")
+                    ChildInfoText(label = "Berat Badan:", value = "${child.weight} kg")
+                }
+
                 Spacer(modifier = Modifier.height(10.dp))
                 // Box untuk resultText
                 child.result?.let { resultText ->
@@ -259,12 +253,15 @@ fun ChildCard(child: Child, listScreenViewModel: ListScreenViewModel) {
 
                 Spacer(modifier = Modifier.height(10.dp))
                 child.recommendation?.let {
-                    Text(
-                        fontWeight = FontWeight.Bold,
-                        text = "Anjuran:$it",
-                        fontSize = 18.sp,
-                        color = colorScheme.onSurface
-                    )
+                    Column {
+                        Text(
+                            text = "Anjuran:",
+                            fontWeight = FontWeight.Bold,
+                            fontSize = 18.sp,
+                            color = colorScheme.onSurface
+                        )
+                        BulletList(text = it)
+                    }
                 }
 
                 Spacer(modifier = Modifier.height(8.dp))
@@ -313,5 +310,18 @@ fun ChildCard(child: Child, listScreenViewModel: ListScreenViewModel) {
     }
 }
 
+@Composable
+fun ChildInfoText(label: String, value: String) {
+    Text(
+        text = buildAnnotatedString {
+            withStyle(style = SpanStyle(fontWeight = FontWeight.Bold)) {
+                append("$label ")
+            }
+            append(value)
+        },
+        fontSize = 18.sp,
+        color = colorScheme.onSurface
+    )
+}
 
 

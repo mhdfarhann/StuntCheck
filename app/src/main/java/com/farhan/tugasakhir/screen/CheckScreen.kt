@@ -386,21 +386,11 @@ fun CheckScreen(
                             textAlign = TextAlign.Center,
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .padding(top = 10.dp)
+                                .padding(top = 10.dp, bottom = 10.dp)
                         )
 
-                        Text(
-                            text = recommendationText,
-                            color = colorScheme.onSurface,
-                            style = TextStyle(
-                                fontSize = 16.sp,
-                                fontWeight = FontWeight.Normal
-                            ),
-                            textAlign = TextAlign.Justify,
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(start = 20.dp, end = 20.dp, bottom = 20.dp)
-                        )
+                        BulletList(recommendationText)
+
                     }
                 } else if (resultText == "Data tidak valid") {
                     Box(
@@ -433,5 +423,20 @@ fun calculateAgeInMonths(birthDate: String): Int {
     val currentDate = LocalDate.now()
     return Period.between(birthLocalDate, currentDate).toTotalMonths().toInt()
 }
+
+
+@Composable
+fun BulletList(text: String) {
+    val items = text.split("\n\n").map { it.trim() }
+    Column {
+        items.forEach { item ->
+            Row(modifier = Modifier.padding(bottom = 8.dp)) {
+                Text("•", modifier = Modifier.padding(start = 15.dp, end = 10.dp), fontSize = 18.sp)
+                Text(item, modifier = Modifier.padding(end = 20.dp,  bottom = 10.dp),fontSize = 16.sp, lineHeight = 24.sp, textAlign = TextAlign.Justify,)
+            }
+        }
+    }
+}
+
 
 
