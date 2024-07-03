@@ -132,7 +132,7 @@ fun ProfileScreen(
                     val imagePainter = if (profileImageUrl.isNotEmpty()) {
                         rememberAsyncImagePainter(profileImageUrl)
                     } else {
-                        rememberAsyncImagePainter("https://i.pinimg.com/736x/5e/39/6b/5e396bb1b17681759922dd10f8a9d702.jpg")
+                        rememberAsyncImagePainter("https://cdn-icons-png.freepik.com/512/8742/8742495.png")
                     }
 
                     Image(

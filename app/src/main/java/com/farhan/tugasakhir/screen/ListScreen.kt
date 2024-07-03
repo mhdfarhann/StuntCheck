@@ -7,6 +7,7 @@ import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.spring
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -20,6 +21,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.ClickableText
 import androidx.compose.foundation.text.InlineTextContent
 import androidx.compose.foundation.text.appendInlineContent
 import androidx.compose.material.icons.Icons
@@ -50,13 +52,17 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.ParagraphStyle
 import androidx.compose.ui.text.Placeholder
 import androidx.compose.ui.text.PlaceholderVerticalAlign
 import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.TextLayoutResult
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
@@ -78,7 +84,7 @@ import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 
 @Composable
-fun ListScreen(listScreenViewModel: ListScreenViewModel = viewModel(), navigateBack: () -> Unit) {
+fun ListScreen(listScreenViewModel: ListScreenViewModel = viewModel(), navigateBack: () -> Unit, navigateToPdfViewer: (String) -> Unit) {
     val firebaseAuth = FirebaseAuth.getInstance()
     val userId = firebaseAuth.currentUser?.uid
 
@@ -129,7 +135,7 @@ fun ListScreen(listScreenViewModel: ListScreenViewModel = viewModel(), navigateB
         } else {
             LazyColumn {
                 items(children) { child ->
-                    ChildCard(child, listScreenViewModel)
+                    ChildCard(child, listScreenViewModel, navigateToPdfViewer )
                 }
             }
         }
@@ -138,7 +144,7 @@ fun ListScreen(listScreenViewModel: ListScreenViewModel = viewModel(), navigateB
 
 
 @Composable
-fun ChildCard(child: Child, listScreenViewModel: ListScreenViewModel) {
+fun ChildCard(child: Child, listScreenViewModel: ListScreenViewModel,  navigateToPdfViewer: (String) -> Unit) {
     val formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss")
     val lastUpdatedTime = child.lastUpdated?.let {
         Instant.ofEpochMilli(it).atZone(ZoneId.systemDefault()).format(formatter)
@@ -262,9 +268,26 @@ fun ChildCard(child: Child, listScreenViewModel: ListScreenViewModel) {
                         )
                         BulletList(text = it)
                     }
-                }
 
-                Spacer(modifier = Modifier.height(8.dp))
+
+                    Spacer(modifier = Modifier.height(8.dp))
+
+                    val annotatedText = buildAnnotatedString {
+                        append("Kemenkes juga sudah menyiapkan panduan bagi para ibu dalam menyiapkan makanan lokal yang kaya dengan protein hewani, yaitu buku Resep Makanan Lokal yang kaya dengan protein hewani bagi Bayi, Balita dan Ibu Hamil, buku tersebut dapat ")
+                        pushStringAnnotation(tag = "URL", annotation = "https://drive.google.com/file/d/1wctAgirlkJoRb5V4KTIt66pDXp5gmq8r/view")
+                        withStyle(style = SpanStyle(color = Color.Blue, fontWeight = FontWeight.Bold)) {
+                            append("disini")
+                        }
+                        pop()
+                    }
+
+                    JustifiedClickableText(
+                        text = annotatedText,
+                        navigateToPdfViewer = navigateToPdfViewer
+                    )
+
+
+                    Spacer(modifier = Modifier.height(8.dp))
 
                 Text(
                     text = "Terakhir Diperbarui: $lastUpdatedTime",
@@ -309,6 +332,7 @@ fun ChildCard(child: Child, listScreenViewModel: ListScreenViewModel) {
         }
     }
 }
+}
 
 @Composable
 fun ChildInfoText(label: String, value: String) {
@@ -325,3 +349,25 @@ fun ChildInfoText(label: String, value: String) {
 }
 
 
+@Composable
+fun JustifiedClickableText(
+    text: AnnotatedString,
+    navigateToPdfViewer: (String) -> Unit
+) {
+    val layoutResult = remember { mutableStateOf<TextLayoutResult?>(null) }
+
+    ClickableText(
+        text = text,
+        style = TextStyle(textAlign = TextAlign.Justify),
+        onClick = { offset ->
+            layoutResult.value?.let {
+                text.getStringAnnotations("URL", offset, offset)
+                    .firstOrNull()?.let { annotation ->
+                        navigateToPdfViewer(annotation.item)
+                    }
+            }
+        },
+        onTextLayout = { layoutResult.value = it },
+        modifier = Modifier.padding(8.dp)
+    )
+}

@@ -15,6 +15,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.farhan.tugasakhir.data.model.Standard
+import com.farhan.tugasakhir.item.PDFViewer
 import com.farhan.tugasakhir.viewmodel.AddScreenViewModel
 import com.farhan.tugasakhir.viewmodel.CheckScreenViewModel
 import com.farhan.tugasakhir.viewmodel.HomeViewModel
@@ -96,8 +97,19 @@ fun StuntCheckApp(navController: NavHostController = rememberNavController(), ma
             composable(Screen.ListScreen.route){
                 ListScreen(listScreenViewModel,navigateBack = {
                     navController.navigateUp()
+                },navigateToPdfViewer = { pdfUrl ->
+                    navController.navigate("pdf_viewer?pdfUrl=$pdfUrl")
                 })
             }
+
+            composable(
+                "pdf_viewer?pdfUrl={pdfUrl}",
+                arguments = listOf(navArgument("pdfUrl") { type = NavType.StringType })
+            ) { backStackEntry ->
+                val pdfUrl = backStackEntry.arguments?.getString("pdfUrl") ?: ""
+                PDFViewer(pdfUrl = pdfUrl, navigateBack = { navController.navigateUp() })
+            }
+
             composable(Screen.AddScreen.route){
                 AddScreen(addScreenViewModel,navigateBack = {
                     navController.navigateUp()
