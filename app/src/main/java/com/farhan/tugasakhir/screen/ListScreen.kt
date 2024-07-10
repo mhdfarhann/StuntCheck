@@ -273,10 +273,10 @@ fun ChildCard(child: Child, listScreenViewModel: ListScreenViewModel,  navigateT
                     Spacer(modifier = Modifier.height(8.dp))
 
                     val annotatedText = buildAnnotatedString {
-                        append("Kemenkes juga sudah menyiapkan panduan bagi para ibu dalam menyiapkan makanan lokal yang kaya dengan protein hewani, yaitu buku Resep Makanan Lokal yang kaya dengan protein hewani bagi Bayi, Balita dan Ibu Hamil, buku tersebut dapat ")
+                        append("Kemenkes juga sudah menyiapkan panduan bagi para ibu dalam menyiapkan makanan lokal yang kaya dengan protein hewani, yaitu buku Resep Makanan Lokal yang kaya dengan protein hewani bagi Bayi, Balita dan Ibu Hamil, buku tersebut dapat dilihat ")
                         pushStringAnnotation(tag = "URL", annotation = "https://drive.google.com/file/d/1wctAgirlkJoRb5V4KTIt66pDXp5gmq8r/view")
                         withStyle(style = SpanStyle(color = Color.Blue, fontWeight = FontWeight.Bold)) {
-                            append("disini")
+                            append("Disini")
                         }
                         pop()
                     }
@@ -358,7 +358,7 @@ fun JustifiedClickableText(
 
     ClickableText(
         text = text,
-        style = TextStyle(textAlign = TextAlign.Justify),
+        style = TextStyle(textAlign = TextAlign.Justify, color = colorScheme.onSurface),
         onClick = { offset ->
             layoutResult.value?.let {
                 text.getStringAnnotations("URL", offset, offset)
