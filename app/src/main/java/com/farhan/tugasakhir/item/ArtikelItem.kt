@@ -24,6 +24,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 
 @Composable
@@ -78,7 +79,7 @@ fun ArtikelItem(
                     text = judul,
                     textAlign = TextAlign.Start,
                     fontWeight = FontWeight.Medium,
-                    style = MaterialTheme.typography.titleSmall,
+                    fontSize = 12.sp,
                     color = contentColor,
                     modifier = Modifier.padding(start = 10.dp, top = 5.dp)
                 )

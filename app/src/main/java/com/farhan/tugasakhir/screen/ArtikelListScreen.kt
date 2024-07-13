@@ -5,6 +5,7 @@ import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -79,7 +80,6 @@ fun HomeContent(
     navigateBack: () -> Unit
 ) {
     val colorScheme = MaterialTheme.colorScheme
-    MaterialTheme.typography
 
     Column(
         modifier = Modifier
@@ -107,18 +107,23 @@ fun HomeContent(
             )
         }
 
-        if (artikelList.isNotEmpty()) {
-            ArtikelListItem(
-                artikelList = artikelList,
-                navigateToDetail = navigateToDetail
-            )
-        } else {
-            EmptyList(
-                Warning = stringResource(R.string.empty_data),
-                modifier = Modifier
-                    .testTag("emptyList")
-                    .fillMaxSize()
-            )
+        Box(
+            modifier = Modifier
+                .fillMaxSize(),
+            contentAlignment = Alignment.Center
+        ) {
+            if (artikelList.isNotEmpty()) {
+                ArtikelListItem(
+                    artikelList = artikelList,
+                    navigateToDetail = navigateToDetail
+                )
+            } else {
+                EmptyList(
+                    Warning = stringResource(R.string.empty_data),
+                    modifier = Modifier
+                        .testTag("emptyList")
+                )
+            }
         }
     }
 }
@@ -130,8 +135,6 @@ fun ArtikelListItem(
     navigateToDetail: (Int, Boolean, Boolean) -> Unit,
     contentPaddingTop: Dp = 5.dp,
 ) {
-    MaterialTheme.colorScheme
-
     LazyColumn(
         contentPadding = PaddingValues(
             start = 16.dp,
